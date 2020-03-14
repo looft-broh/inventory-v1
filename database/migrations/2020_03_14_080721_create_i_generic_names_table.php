@@ -15,6 +15,7 @@ class CreateIGenericNamesTable extends Migration
     {
         Schema::create('i_generic_names', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('product_number')->unique();
             $table->string('generic_name');
             $table->string('generic_name_description');
             $table->unsignedBigInteger('i_brand_names_id');
