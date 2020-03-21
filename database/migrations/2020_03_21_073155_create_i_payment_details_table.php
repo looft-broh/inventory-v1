@@ -15,6 +15,11 @@ class CreateIPaymentDetailsTable extends Migration
     {
         Schema::create('i_payment_details', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('po_id');
+            $table->foreign('po_id')
+                ->references('id')->on('i_purchase_orders')
+                ->onDelete('cascade');
+            $table->string('payment_type');//value -> partial or full
             $table->timestamps();
         });
     }
