@@ -15,6 +15,20 @@ class CreateIPurchaseOrdersTable extends Migration
     {
         Schema::create('i_purchase_orders', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('po_number')->unique();
+            $table->unsignedBigInteger('medrep_id');
+            $table->foreign('medrep_id')
+                ->references('id')->on('i_medical_representatives')
+                ->onDelete('cascade');
+            $table->unsignedBigInteger('customers_id');
+            $table->foreign('customers_id')
+                ->references('id')->on('i_customers')
+                ->onDelete('cascade');    
+            $table->string('po_status');//value -> fullfiled or pending
+            $table->string('aproval');//value -> hold or unhold
+            $table->string('aproval_date');
+            $table->string('po_type');//value -> contract, regular or in-house
+            $table->string('shipping_terms');//value -> pick-up or deliver
             $table->timestamps();
         });
     }
